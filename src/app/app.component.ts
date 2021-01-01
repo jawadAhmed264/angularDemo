@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccountService } from './sharedServices/account.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
+    constructor(private service:AccountService){}
    
+   logout(){
+      this.service.logout().subscribe(data=>{
+         alert("logout successfull");
+      });
+   }
 }

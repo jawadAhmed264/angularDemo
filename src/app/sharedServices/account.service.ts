@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { RegisterModel } from '../Models/register-model';
 import { LoginModel } from '../Models/login-model';
 import { Observable } from 'rxjs';
@@ -10,16 +10,20 @@ export class AccountService {
 
   constructor(private http:HttpClient) { }
 
-  loginUrl:string="https://localhost:44395/token";
+  loginUrl:string="https://localhost:44395";
   accountUrl:string="https://localhost:44395/api/Account/";
 
   registerUser(register:RegisterModel):Observable<any>
   {
      return this.http.post(this.accountUrl+"Register",register);
   }
-  loginUser(login:LoginModel)
+  loginUser(login:LoginModel):Observable<any>
   {
-     return this.http.post(this.loginUrl,login);
+   {
+      var data = "username=" + login.username + "&password=" + login.password + "&grant_type="+login.granttype;
+      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','No-Auth':'True' });
+      return this.http.post(this.loginUrl + '/token', data, { headers: reqHeader });
+    }
   }
   logout()
   {

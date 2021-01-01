@@ -2,26 +2,26 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <form>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
             <div class="form-group">
             <label>Email</label>
-            <input type="text" class="form-control" id="depName"/>
-            <!-- <div *ngIf="depForm.controls['depName'].invalid && (depForm.controls['depName'].touched || depForm.controls['depName'].dirty)" class="error">
-                <div *ngIf="depForm.controls['depName'].errors.required">
-                    Name is required
+            <input type="text" class="form-control" id="username" formControlName="username"/>
+            <div *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].touched || loginForm.controls['username'].dirty)" class="error">
+                <div *ngIf="loginForm.controls['username'].errors.required">
+                    Enter username
                 </div>
-            </div> -->
+            </div>
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="text" class="form-control" id="depName"/>
-                <!-- <div *ngIf="depForm.controls['depName'].invalid && (depForm.controls['depName'].touched || depForm.controls['depName'].dirty)" class="error">
-                    <div *ngIf="depForm.controls['depName'].errors.required">
-                        Name is required
+                <input type="text" class="form-control" id="password" formControlName="password"/>
+                <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)" class="error">
+                    <div *ngIf="loginForm.controls['password'].errors.required">
+                        Enter Password
                     </div>
-                </div> -->
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
         </form>
     </div>
 </div>
