@@ -1,0 +1,97 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{formTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+  <div class="modal-body">
+    <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <span class="error">*</span><label>Name</label>
+          <input type="text" class="form-control" name="EmployeeName" formControlName="empName">
+          <div *ngIf="empForm.controls['empName'].invalid && (empForm.controls['empName'].touched || empForm.controls['empName'].dirty)" class="error">
+            <div *ngIf="empForm.controls['empName'].errors.required">
+              Name is required
+            </div>
+            <div *ngIf="empForm.controls['empName'].errors.maxlength">
+              Character limit exceeded
+            </div>
+            <div *ngIf="empForm.controls['empName'].errors.minlength">
+              Enter atleast 3 characters
+            </div>
+            <div *ngIf="empForm.controls['empName'].errors.pattern">
+              Invalid Name
+            </div>
+        </div>
+        </div>
+        <div class="form-group">
+          <span class="error">*</span><label>Gender</label>
+            <select class="form-control" name="EmployeeGender" formControlName="Gender">
+                <option value="" selected>Select</option>  
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <div *ngIf="empForm.controls['Gender'].invalid && (empForm.controls['Gender'].touched || empForm.controls['Gender'].dirty)" class="error">
+              <div *ngIf="empForm.controls['Gender'].errors.required">
+                Select Gender
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="error">*</span><label>Contact</label>
+            <input type="text" class="form-control" name="EmployeeContact" formControlName="Contact">
+            <div *ngIf="empForm.controls['Contact'].invalid && (empForm.controls['Contact'].touched || empForm.controls['Contact'].dirty)" class="error">
+              <div *ngIf="empForm.controls['Contact'].errors.required">
+                Contact is required
+              </div>
+              <div *ngIf="empForm.controls['Contact'].errors.maxlength">
+                 limit exceeded
+              </div>
+              <div *ngIf="empForm.controls['Contact'].errors.minlength">
+                Enter atleast 8 characters
+              </div>
+              <div *ngIf="empForm.controls['Contact'].errors.pattern">
+                Invalid Contact Number
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="error">*</span><label>Age</label>
+            <input type="number" class="form-control" name="EmployeeAge" formControlName="Age">
+            <div *ngIf="empForm.controls['Age'].invalid && (empForm.controls['Age'].touched || empForm.controls['Age'].dirty)" class="error">
+              <div *ngIf="empForm.controls['Age'].errors.required">
+                Age is required
+              </div>
+              <div *ngIf="empForm.controls['Age'].errors.min || empForm.controls['Age'].errors.max">
+                 Age Limit(18-70)
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="error">*</span><label>Salary</label>
+            <input type="text" class="form-control" name="EmployeeSalary" formControlName="Salary">
+            <div *ngIf="empForm.controls['Salary'].invalid && (empForm.controls['Salary'].touched || empForm.controls['Salary'].dirty)" class="error">
+              <div *ngIf="empForm.controls['Salary'].errors.required">
+                Salary is required
+              </div>
+              <div *ngIf="empForm.controls['Salary'].errors.pattern">
+                 Input numbers only
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <span class="error">*</span><label>Department</label>
+          <select class="form-control" name="depSelect" formControlName="depId">
+                <option value="-1" selected>Select</option>
+                <option *ngFor="let dep of departmentList" value="{{dep.Id}}">{{dep.DepName}}</option>
+            </select>
+            <div *ngIf="empForm.controls['depId'].invalid && (empForm.controls['depId'].touched || empForm.controls['depId'].dirty)" class="error">
+              <div *ngIf="empForm.controls['depId'].errors.required">
+                 Select Department
+              </div>
+          </div>
+      </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!empForm.valid">Save</button>
+      </form>
+  </div>

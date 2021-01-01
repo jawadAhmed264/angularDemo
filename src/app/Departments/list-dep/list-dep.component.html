@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-lg btn-outline-primary" (click)="add()">Add Department</button>
+    </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-bordered">
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Actions</td>
+        </tr>
+        <tr *ngFor="let dep of DepartmentList;let i = index;trackBy: trackByDepId">
+            <td>{{dep.Id}}</td>
+            <td>{{dep.DepName}}</td>
+            <td><button class="btn btndefault" (click)=update(dep)>Update</button> | <button class="btn btn-danger" (click)="delete(dep)">Delete</button></td>
+        </tr>
+    </table>
+   </div>
+</div>

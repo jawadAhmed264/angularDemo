@@ -1,0 +1,39 @@
+<h1>Register New User</h1>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <form [formGroup]="regForm" (ngSubmit)="onRegister()">
+            <div class="form-group">
+            <span class="error">*</span><label>Email</label>
+            <input type="text" class="form-control" id="email" formControlName="email" />
+            <div *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].touched || regForm.controls['email'].dirty)" class="error">
+                <div *ngIf="regForm.controls['email'].errors.required">
+                    Email is required
+                </div>
+                <div *ngIf="regForm.controls['email'].errors.email">
+                    Invalid Email
+                </div>
+            </div>
+            </div>
+            <div class="form-group">
+                <span class="error">*</span><label>Password</label>
+                <input type="text" class="form-control" id="password" formControlName="password" />
+                <div *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].touched || regForm.controls['password'].dirty)" class="error">
+                    <div *ngIf="regForm.controls['password'].errors.required">
+                        Password is required
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="error">*</span><label>Confirm Password</label>
+                <input type="text" class="form-control" id="confirmPassword" formControlName="confirmPassword" />
+                <div *ngIf="regForm.controls['confirmPassword'].invalid && (regForm.controls['confirmPassword'].touched || regForm.controls['confirmPassword'].dirty)" class="error">
+                    <div *ngIf="regForm.controls['confirmPassword'].errors.required">
+                        Retype Password
+                    </div>
+                </div>
+            </div>    
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
