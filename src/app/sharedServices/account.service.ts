@@ -20,9 +20,9 @@ export class AccountService {
   loginUser(login:LoginModel):Observable<any>
   {
    {
-      var data = "username=" + login.username + "&password=" + login.password + "&grant_type="+login.granttype;
+      var data = "Username=" + login.username + "&Password=" + login.password;
       var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','No-Auth':'True' });
-      return this.http.post(this.loginUrl + '/token', data, { headers: reqHeader });
+      return this.http.post(this.loginUrl + '/Token', data, { headers: reqHeader });
     }
   }
   logout()
