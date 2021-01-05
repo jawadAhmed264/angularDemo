@@ -13,9 +13,13 @@ import { AccountService } from 'src/app/sharedServices/account.service';
 })
 export class LoginComponent implements OnInit {
   loginForm:FormGroup;
+  isLoginError:boolean=false;
   constructor(private fb:FormBuilder,private service:AccountService,private router:Router) { }
 
   ngOnInit(): void {
+    if (this.service.isLogin()) {
+      this.router.navigate(['']);
+   }
      this.loginForm=this.fb.group({
         username:['',[Validators.required]],
         password:['',[Validators.required]]
@@ -32,6 +36,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['department']);
       },
       (err : HttpErrorResponse)=>{
+        this.isLoginError=true;
          console.log(err);
       });
   }

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { EmployeeService } from './sharedServices/employee.service';
 import { DepartmentService } from './sharedServices/department.service';
 
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ListDepComponent } from './Departments/list-dep/list-dep.component';
@@ -16,6 +16,9 @@ import { AddEmpComponent } from './Employees/add-emp/add-emp.component';
 import { RegisterComponent } from './Account/register/register.component';
 import { LoginComponent } from './Account/login/login.component';
 import { AccountService } from './sharedServices/account.service';
+import { NavComponent } from './Structure/nav/nav.component';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { AccountService } from './sharedServices/account.service';
     AddEmpComponent,
     RegisterComponent,
     LoginComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,9 @@ import { AccountService } from './sharedServices/account.service';
     ReactiveFormsModule,
     NgbModule
   ],
-  providers: [EmployeeService,DepartmentService,AccountService],
+  providers: [EmployeeService,DepartmentService,AccountService,
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
+    AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

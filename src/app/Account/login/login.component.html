@@ -2,6 +2,9 @@
 <br>
 <div class="row">
     <div class="col-md-6">
+        <div *ngIf="isLoginError" class="error">
+            Incorrect username or password
+        </div>
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
             <div class="form-group">
             <label>Email</label>

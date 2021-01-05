@@ -9,10 +9,6 @@ import { AccountService } from './sharedServices/account.service';
 
 export class AppComponent {
     constructor(private service:AccountService){}
-   
-   logout(){
-      this.service.logout().subscribe(data=>{
-         alert("logout successfull");
-      });
-   }
+
 }
+

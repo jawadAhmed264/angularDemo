@@ -38,11 +38,12 @@ export class AddEmpComponent implements OnInit {
     });
     }
     else{
-      this.employee.EmpName=this.empForm.value.empName;
-      this.employee.Gender=this.empForm.value.empGender;
-      this.employee.Contact=this.empForm.value.empContact;
-      this.employee.Age=this.empForm.value.empAge;
-      this.employee.Salary=this.empForm.value.empSalary;
+      this.employee.EmpName=this.empForm.controls["empName"].value;
+      this.employee.Gender=this.empForm.controls["Gender"].value;
+      this.employee.Contact=this.empForm.controls["Contact"].value;
+      this.employee.Age=this.empForm.controls["Age"].value;
+      this.employee.Salary=this.empForm.controls["Salary"].value;
+      this.employee.DepId=this.empForm.controls["depId"].value;
       this.service.update(this.employee.Id,this.employee).subscribe(data=>{
         this.activeModal.close('Notify click');
     });

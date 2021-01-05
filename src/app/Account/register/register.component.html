@@ -2,7 +2,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <form [formGroup]="regForm" (ngSubmit)="onRegister()">
+        <form [formGroup]="regForm" (ngSubmit)="onRegister(regForm)">
             <div class="form-group">
             <span class="error">*</span><label>Email</label>
             <input type="text" class="form-control" id="email" formControlName="email" />
@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <span class="error">*</span><label>Password</label>
-                <input type="text" class="form-control" id="password" formControlName="password" />
+                <input type="password" class="form-control" id="password" formControlName="password" />
                 <div *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].touched || regForm.controls['password'].dirty)" class="error">
                     <div *ngIf="regForm.controls['password'].errors.required">
                         Password is required
@@ -26,11 +26,14 @@
             </div>
             <div class="form-group">
                 <span class="error">*</span><label>Confirm Password</label>
-                <input type="text" class="form-control" id="confirmPassword" formControlName="confirmPassword" />
+                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" />
                 <div *ngIf="regForm.controls['confirmPassword'].invalid && (regForm.controls['confirmPassword'].touched || regForm.controls['confirmPassword'].dirty)" class="error">
                     <div *ngIf="regForm.controls['confirmPassword'].errors.required">
                         Retype Password
                     </div>
+                </div>
+                <div *ngIf="regForm.hasError('passwordNotMatch') && (regForm.controls['confirmPassword'].touched || regForm.controls['confirmPassword'].dirty)" class="error">
+                    Password did not match
                 </div>
             </div>    
             <button type="submit" class="btn btn-primary" [disabled]="!regForm.valid">Register</button>

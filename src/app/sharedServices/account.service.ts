@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { RegisterModel } from '../Models/register-model';
 import { LoginModel } from '../Models/login-model';
 import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,19 +16,23 @@ export class AccountService {
 
   registerUser(register:RegisterModel):Observable<any>
   {
+     register.Role="User";
      return this.http.post(this.accountUrl+"Register",register);
   }
   loginUser(login:LoginModel):Observable<any>
   {
    {
-      var data = "Username=" + login.username + "&Password=" + login.password;
-      var reqHeader = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded','No-Auth':'True' });
-      return this.http.post(this.loginUrl + '/Token', data, { headers: reqHeader });
+      var data = "Grant_Type=password&Username=" + login.username + "&Password=" + login.password;
+      return this.http.post(this.loginUrl + '/Token', data);
     }
   }
   logout()
   {
      return this.http.post(this.accountUrl+"logout",null);
+  }
+
+  isLogin():boolean{
+    return (localStorage.getItem('userToken')!=null)? true:false;
   }
   
 }
