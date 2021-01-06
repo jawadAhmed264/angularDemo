@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
       loginModel.granttype='password';
       this.service.loginUser(loginModel).subscribe((data : any)=>{
         localStorage.setItem('userToken',data.access_token);
+        localStorage.setItem('userRoles',data.role);
         this.router.navigate(['department']);
       },
       (err : HttpErrorResponse)=>{

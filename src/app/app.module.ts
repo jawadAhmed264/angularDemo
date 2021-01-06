@@ -13,6 +13,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DepartmentModule } from './department/department.module';
 import { EmployeeModule } from './employee/employee.module';
+import { ForbiddenComponent } from './error/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { EmployeeModule } from './employee/employee.module';
     RegisterComponent,
     LoginComponent,
     NavComponent,
+    ForbiddenComponent,
   ],
   imports: [
     BrowserModule,

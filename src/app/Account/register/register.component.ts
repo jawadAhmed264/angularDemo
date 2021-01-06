@@ -10,13 +10,20 @@ import {Router} from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   regForm:FormGroup;
-  
+  roles : any[];
   constructor(private fb:FormBuilder,private service:AccountService, private router: Router) { }
   
   ngOnInit(): void {
     if (this.service.isLogin()) {
       this.router.navigate(['']);
-   }
+    }
+    this.service.getAllRoles().subscribe(
+        (data : any)=>{
+          data.forEach(obj => obj.selected = false);
+          this.roles = data;
+        }
+    );
+   
      this.regForm=this.fb.group({
         email:['',[Validators.required,Validators.email]],
         password:['',Validators.required],
@@ -25,13 +32,21 @@ export class RegisterComponent implements OnInit {
   }
   
   onRegister(regForm:any){
-      this.service.registerUser(this.regForm.value).subscribe(data=>{
+      var x = this.roles.filter(x => x.selected).map(y => y.Name);
+      this.service.registerUser(this.regForm.value,x).subscribe(data=>{
          this.regForm.reset();
+         this.resetForm();
          alert("User Register Successfully");
          this.router.navigate(['login']);
       },Error=>{console.log(Error[0])});
   }
-   
+  updateSelectedRoles(index) {
+    this.roles[index].selected = !this.roles[index].selected;
+  }
+  resetForm() {
+    if (this.roles)
+      this.roles.map(x => x.selected = false);
+  }
 }
 export function comparePassword(
    control: AbstractControl

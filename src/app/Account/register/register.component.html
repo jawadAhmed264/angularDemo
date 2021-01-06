@@ -35,6 +35,15 @@
                 <div *ngIf="regForm.hasError('passwordNotMatch') && (regForm.controls['confirmPassword'].touched || regForm.controls['confirmPassword'].dirty)" class="error">
                     Password did not match
                 </div>
+            </div>
+            <div class="row" *ngIf="roles">
+                <ul>
+                  <li *ngFor="let item of roles;let i = index">
+                    <input type="checkbox" [id]="'roles-'+i" value="{{item.Id}}"
+                    [checked]="item.selected"  (change)="updateSelectedRoles(i)">
+                    <label [for]="'roles-'+i">{{item.Name}}</label>
+                  </li>
+                </ul>
             </div>    
             <button type="submit" class="btn btn-primary" [disabled]="!regForm.valid">Register</button>
         </form>

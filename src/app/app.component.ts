@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AccountService } from './sharedServices/account.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +7,7 @@ import { AccountService } from './sharedServices/account.service';
 })
 
 export class AppComponent {
-    constructor(private service:AccountService){}
+    constructor(){}
 
 }
 

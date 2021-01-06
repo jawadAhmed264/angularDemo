@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 })
 export class NavComponent implements DoCheck,OnInit {
   signIn:boolean=false;
-  constructor(private router:Router,private service:AccountService) { }
+  constructor(private router:Router,public service:AccountService) { }
 
   ngOnInit(): void {
    

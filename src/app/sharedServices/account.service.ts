@@ -13,12 +13,13 @@ export class AccountService {
 
   loginUrl:string="https://localhost:44395";
   accountUrl:string="https://localhost:44395/api/Account/";
-
-  registerUser(register:RegisterModel):Observable<any>
+  
+  registerUser(register:RegisterModel,roles : string[]):Observable<any>
   {
-     register.Role="User";
+     register.Role=roles;
      return this.http.post(this.accountUrl+"Register",register);
   }
+  
   loginUser(login:LoginModel):Observable<any>
   {
    {
@@ -26,6 +27,7 @@ export class AccountService {
       return this.http.post(this.loginUrl + '/Token', data);
     }
   }
+
   logout()
   {
      return this.http.post(this.accountUrl+"logout",null);
@@ -33,6 +35,26 @@ export class AccountService {
 
   isLogin():boolean{
     return (localStorage.getItem('userToken')!=null)? true:false;
+  }
+
+  getAllRoles() {
+    //var reqHeader = new HttpHeaders({ 'No-Auth': 'True' });
+    return this.http.get(this.loginUrl + '/api/GetAllRoles');
+  }
+
+  roleMatch(allowedRoles): boolean {
+    var isMatch = false;
+    if(localStorage.getItem('userRoles')!=null){
+      var userRoles: string[] = JSON.parse(localStorage.getItem('userRoles'));
+      allowedRoles.forEach(element => {
+        if (userRoles.indexOf(element) > -1) {
+          isMatch = true;
+          return false;
+        }
+      });
+    }
+   
+    return isMatch;
   }
   
 }
