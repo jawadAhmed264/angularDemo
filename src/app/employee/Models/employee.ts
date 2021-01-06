@@ -1,4 +1,4 @@
-import { Department } from "./department";
+import { Department } from "../../department/Models/department";
 
 export class Employee {
     Id:number;

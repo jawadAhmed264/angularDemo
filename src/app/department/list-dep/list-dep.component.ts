@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Department } from 'src/app/Models/department';
-import {DepartmentService} from '../../sharedServices/department.service'
+import { Department } from 'src/app/department/Models/department';
+import {DepartmentService} from '../departmentServices/department.service'
 import { AddDepComponent } from '../add-dep/add-dep.component';
 
 @Component({

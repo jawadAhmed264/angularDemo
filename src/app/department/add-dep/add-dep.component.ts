@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder,FormGroup, Validators} from '@angular/forms'
-import { DepartmentService } from '../../sharedServices/department.service'
-import { Department } from 'src/app/Models/department';
+import { DepartmentService } from '../departmentServices/department.service'
+import { Department } from 'src/app/department/Models/department';
 
 @Component({
   selector: 'app-add-dep',

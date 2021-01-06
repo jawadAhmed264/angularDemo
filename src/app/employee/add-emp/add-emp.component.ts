@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Department } from 'src/app/Models/department';
-import { Employee } from 'src/app/Models/employee';
-import { DepartmentService } from 'src/app/sharedServices/department.service';
-import { EmployeeService } from 'src/app/sharedServices/employee.service';
+import { Department } from 'src/app/department/Models/department';
+import { Employee } from 'src/app/employee/Models/employee';
+import { DepartmentService } from 'src/app/department/departmentServices/department.service';
+import { EmployeeService } from 'src/app/employee/employeeServices/employee.service';
 
 @Component({
   selector: 'app-add-emp',

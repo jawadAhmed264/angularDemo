@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Employee } from 'src/app/Models/employee';
-import { DepartmentService } from 'src/app/sharedServices/department.service';
-import { EmployeeService } from 'src/app/sharedServices/employee.service';
+import { Employee } from 'src/app/employee/Models/employee';
+import { DepartmentService } from 'src/app/department/departmentServices/department.service';
+import { EmployeeService } from 'src/app/employee/employeeServices/employee.service';
 import { AddEmpComponent } from '../add-emp/add-emp.component';
 
 @Component({
