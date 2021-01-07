@@ -6,6 +6,7 @@ import { ListDepComponent } from './list-dep/list-dep.component';
 import { AddDepComponent } from './add-dep/add-dep.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -15,6 +16,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     CommonModule,
+    TranslateModule.forChild({
+      extend: true
+    }),
     DepartmentRoutingModule,
     FormsModule,
     ReactiveFormsModule,

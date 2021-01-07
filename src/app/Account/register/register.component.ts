@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   
   ngOnInit(): void {
     if (this.service.isLogin()) {
-      this.router.navigate(['']);
+      this.router.navigate(['forbidden']);
     }
     this.service.getAllRoles().subscribe(
         (data : any)=>{
@@ -31,21 +31,19 @@ export class RegisterComponent implements OnInit {
      },{ validators: comparePassword });
   }
   
-  onRegister(regForm:any){
+  onRegister(){
       var x = this.roles.filter(x => x.selected).map(y => y.Name);
       this.service.registerUser(this.regForm.value,x).subscribe(data=>{
          this.regForm.reset();
-         this.resetForm();
+         if (this.roles)
+           {this.roles.map(x => x.selected = false);}
          alert("User Register Successfully");
          this.router.navigate(['login']);
       },Error=>{console.log(Error[0])});
   }
+  
   updateSelectedRoles(index) {
     this.roles[index].selected = !this.roles[index].selected;
-  }
-  resetForm() {
-    if (this.roles)
-      this.roles.map(x => x.selected = false);
   }
 }
 export function comparePassword(

@@ -14,10 +14,10 @@ export class AccountService {
   loginUrl:string="https://localhost:44395";
   accountUrl:string="https://localhost:44395/api/Account/";
   
-  registerUser(register:RegisterModel,roles : string[]):Observable<any>
+  registerUser(register:any,roles : string[]):Observable<any>
   {
-     register.Role=roles;
-     return this.http.post(this.accountUrl+"Register",register);
+     let body:RegisterModel={email:register.email,password:register.password,confirmPassword:register.confirmPassword,roles:roles}
+     return this.http.post(this.accountUrl+"Register",body);
   }
   
   loginUser(login:LoginModel):Observable<any>

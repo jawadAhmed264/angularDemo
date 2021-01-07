@@ -3,6 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Department } from 'src/app/department/Models/department';
 import {DepartmentService} from '../departmentServices/department.service'
 import { AddDepComponent } from '../add-dep/add-dep.component';
+import { AccountService } from 'src/app/sharedServices/account.service';
+
 
 @Component({
   selector: 'app-list-dep',
@@ -12,7 +14,7 @@ import { AddDepComponent } from '../add-dep/add-dep.component';
 export class ListDepComponent implements OnInit {
 
   DepartmentList:Department[];
-  constructor(private service:DepartmentService,private modalService: NgbModal) { }
+  constructor(private service:DepartmentService,private modalService: NgbModal,public userService:AccountService) { }
 
   ngOnInit(): void {
      this.service.getList().subscribe(data=>{

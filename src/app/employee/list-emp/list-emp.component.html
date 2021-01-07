@@ -1,6 +1,6 @@
 <div class=row>
    <div class="col-md-12">
-      <button class="btn btn-lg btn-outline-primary" (click)="add()">Add Employee</button>
+      <button class="btn btn-lg btn-outline-primary" (click)="add()">{{'Add Employee'|translate}}</button>
    </div>
 </div>
 <br>
@@ -9,13 +9,13 @@
     <table class="table table-bordered">
         <tr>
             <td>Id</td>
-            <td>Name</td>
-            <td>Gender</td>
-            <td>Contact</td>
-            <td>Age</td>
-            <td>Salary</td>
-            <td>Department</td>
-            <td>Actions</td>
+            <td>{{'Name'|translate}}</td>
+            <td>{{'Gender'|translate}}</td>
+            <td>{{'Contact'|translate}}</td>
+            <td>{{'Age'|translate}}</td>
+            <td>{{'Salary'|translate}}</td>
+            <td>{{'Department'|translate}}</td>
+            <td>{{'Actions'|translate}}</td>
         </tr>
         <tr *ngFor="let emp of EmployeeList;let i = index;trackBy: trackByEmpId">
             <td>{{emp.Id}}</td>
@@ -25,7 +25,7 @@
             <td>{{emp.Age}}</td>
             <td>{{emp.Salary}}</td>
             <td>{{emp.Department.DepName}}</td>
-            <td><button class="btn btndefault" (click)=update(emp)>Update</button> | <button class="btn btn-danger" (click)="delete(emp)">Delete</button></td>
+            <td><button class="btn btndefault" *ngIf="userService.roleMatch(['Admin','SubAdmin'])" (click)=update(emp)>{{'Update'|translate}}</button>  <button class="btn btn-danger" *ngIf="userService.roleMatch(['Admin','SubAdmin'])" (click)="delete(emp)">{{'Delete'|translate}}</button></td>
         </tr>
     </table>
     </div>

@@ -4,6 +4,7 @@ import { Employee } from 'src/app/employee/Models/employee';
 import { DepartmentService } from 'src/app/department/departmentServices/department.service';
 import { EmployeeService } from 'src/app/employee/employeeServices/employee.service';
 import { AddEmpComponent } from '../add-emp/add-emp.component';
+import { AccountService } from 'src/app/sharedServices/account.service';
 
 @Component({
   selector: 'app-list-emp',
@@ -13,7 +14,10 @@ import { AddEmpComponent } from '../add-emp/add-emp.component';
 export class ListEmpComponent implements OnInit {
 
   EmployeeList:Employee[];
-  constructor(private depService:DepartmentService,private service:EmployeeService,private modalService: NgbModal) { }
+  constructor(private depService:DepartmentService,
+   private service:EmployeeService,
+   public userService:AccountService,
+   private modalService: NgbModal) { }
 
   ngOnInit(): void {
      this.service.getList().subscribe(data=>{

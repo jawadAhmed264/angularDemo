@@ -2,7 +2,7 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <form [formGroup]="regForm" (ngSubmit)="onRegister(regForm)">
+        <form [formGroup]="regForm" (ngSubmit)="onRegister()">
             <div class="form-group">
             <span class="error">*</span><label>Email</label>
             <input type="text" class="form-control" id="email" formControlName="email" />

@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { RegisterComponent } from './Account/register/register.component';
 import { LoginComponent } from './Account/login/login.component';
@@ -14,6 +14,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { DepartmentModule } from './department/department.module';
 import { EmployeeModule } from './employee/employee.module';
 import { ForbiddenComponent } from './error/forbidden/forbidden.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LocalSettingsService } from './sharedServices/LocalSettingsService';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,13 @@ import { ForbiddenComponent } from './error/forbidden/forbidden.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
@@ -35,7 +45,11 @@ import { ForbiddenComponent } from './error/forbidden/forbidden.component';
   ],
   providers: [AccountService,
     {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
-    AuthGuard],
+    AuthGuard,LocalSettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+// AOT compilation support
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

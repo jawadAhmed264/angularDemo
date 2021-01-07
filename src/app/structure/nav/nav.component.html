@@ -1,29 +1,43 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">EMS</a>
+    <a class="navbar-brand" href="#">{{ 'Employee Record System' | translate }}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="nav navbar-nav">
         <li class="nav-item" *ngIf="service.roleMatch(['Admin','SubAdmin'])">
-          <a class="nav-link"  [routerLink]="'/employee'">Employee</a>
+          <a class="nav-link"  [routerLink]="'/employee'">{{ 'Employee' | translate }}</a>
         </li>
-        <li class="nav-item" *ngIf="service.roleMatch(['Admin'])">
-          <a class="nav-link" [routerLink]="'/department'">Department</a>
+        <li class="nav-item" *ngIf="service.roleMatch(['Admin','SubAdmin','User'])">
+          <a class="nav-link" [routerLink]="'/department'">{{ 'Department' | translate }}</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <span class="form-inline">
+            <select 
+                class="form-control" 
+                #selectedLang 
+                (change)="switchLang(selectedLang.value)">
+              <option *ngFor="let language of translate.getLangs()" 
+                [value]="language"
+                [selected]="language === translate.currentLang">
+                {{ language }}
+              </option>
+            </select>
+          </span>
+        </li>
         <ng-container *ngIf="!signIn;else logout">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="'/register'">Register</a>
+            <a class="nav-link" [routerLink]="'/register'">{{ 'Register' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="'/login'">Login</a>
+            <a class="nav-link" [routerLink]="'/login'">{{ 'Login' | translate }}</a>
           </li>
         </ng-container>
         <ng-template #logout>
           <li class="nav-item">
-            <a class="nav-link" type="button" style="cursor: pointer" [routerLink]="'/login'" (click)="logoutUser()">Logout</a>
+            <a class="nav-link" type="button" style="cursor: pointer" [routerLink]="'/login'" (click)="logoutUser()">{{ 'Logout' | translate }}</a>
           </li>
         </ng-template>
      

@@ -7,6 +7,7 @@ import { ListEmpComponent } from './list-emp/list-emp.component';
 import { AddEmpComponent } from './add-emp/add-emp.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -16,6 +17,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     CommonModule,
+    TranslateModule.forChild({
+      extend:true
+    }),
     EmployeeRoutingModule,
     FormsModule,
     ReactiveFormsModule,

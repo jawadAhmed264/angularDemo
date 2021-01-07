@@ -22,7 +22,8 @@ export class AuthInterceptor implements HttpInterceptor {
     } else {
         req = req.clone({
             setHeaders: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                //'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                //'No-Auth':'True',
                 Accept: 'application/json'
             }
         });

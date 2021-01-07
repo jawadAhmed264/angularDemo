@@ -9,11 +9,11 @@ import { ForbiddenComponent } from './error/forbidden/forbidden.component';
 const routes: Routes = [
   {path:'register',component:RegisterComponent},
   {path:'login',component:LoginComponent},
-  {path:'department' ,loadChildren: () => import('./department/department.module').then(m => m.DepartmentModule),canActivate:[AuthGuard]},
-  {path:'employee' ,loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule),canActivate:[AuthGuard]},
+  {path:'department' ,loadChildren: () => import('./department/department.module').then(m => m.DepartmentModule),canActivate:[AuthGuard],data: { roles: ['Admin','SubAdmin','User'] }},
+  {path:'employee' ,loadChildren: () => import('./employee/employee.module').then(m => m.EmployeeModule),canActivate:[AuthGuard],data: { roles: ['Admin','SubAdmin'] }},
   {path: 'forbidden', component: ForbiddenComponent, canActivate: [AuthGuard] },
   {path: '',  redirectTo: '/department', pathMatch: 'full' },
-  {path: '**',  redirectTo: '/forbiddden', pathMatch: 'full' }
+  {path: '**',  redirectTo: '/forbidden', pathMatch: 'full' }
 ];
 
 @NgModule({

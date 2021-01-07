@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
      {
       if (localStorage.getItem('userToken') != null)
       {
-        let roles = next.data["userRoles"] as Array<string>;
+        let roles = next.data["roles"] as Array<string>;
         if (roles) {
           var match = this.userService.roleMatch(roles);
           if (match) return true;

@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.service.isLogin()) {
-      this.router.navigate(['']);
+      this.router.navigate(['forbidden']);
    }
      this.loginForm=this.fb.group({
         username:['',[Validators.required]],
