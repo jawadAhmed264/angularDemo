@@ -16,7 +16,10 @@ import { EmployeeModule } from './employee/employee.module';
 import { ForbiddenComponent } from './error/forbidden/forbidden.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { LocalSettingsService } from './sharedServices/LocalSettingsService';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { IdleModalComponent } from './structure/idle-modal/idle-modal.component';
+import {MomentModule} from 'angular2-moment'
+import { AppService } from './sharedServices/app.service';
 
 @NgModule({
   declarations: [
@@ -25,8 +28,10 @@ import { LocalSettingsService } from './sharedServices/LocalSettingsService';
     LoginComponent,
     NavComponent,
     ForbiddenComponent,
+    IdleModalComponent,
   ],
   imports: [
+    MomentModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -37,6 +42,7 @@ import { LocalSettingsService } from './sharedServices/LocalSettingsService';
         deps: [HttpClient]
       }
     }),
+    NgIdleKeepaliveModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
@@ -45,7 +51,7 @@ import { LocalSettingsService } from './sharedServices/LocalSettingsService';
   ],
   providers: [AccountService,
     {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
-    AuthGuard,LocalSettingsService],
+    AuthGuard,AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginModel } from 'src/app/Models/login-model';
 import { AccountService } from 'src/app/sharedServices/account.service';
+import { AppService } from 'src/app/sharedServices/app.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { AccountService } from 'src/app/sharedServices/account.service';
 export class LoginComponent implements OnInit {
   loginForm:FormGroup;
   isLoginError:boolean=false;
-  constructor(private fb:FormBuilder,private service:AccountService,private router:Router) { }
+  constructor(private fb:FormBuilder,private service:AccountService,private router:Router,private appService:AppService) { }
 
   ngOnInit(): void {
     if (this.service.isLogin()) {
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
       loginModel.password=this.loginForm.controls['password'].value;
       loginModel.granttype='password';
       this.service.loginUser(loginModel).subscribe((data : any)=>{
+        this.appService.setUserLoggedIn(true);
         localStorage.setItem('userToken',data.access_token);
         localStorage.setItem('userRoles',data.role);
         this.router.navigate(['department']);
