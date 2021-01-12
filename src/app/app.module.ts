@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { RegisterComponent } from './Account/register/register.component';
 import { LoginComponent } from './Account/login/login.component';
@@ -18,7 +18,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { IdleModalComponent } from './structure/idle-modal/idle-modal.component';
-import {MomentModule} from 'angular2-moment'
+import { MomentModule } from 'angular2-moment'
 import { AppService } from './sharedServices/app.service';
 
 @NgModule({
@@ -50,8 +50,8 @@ import { AppService } from './sharedServices/app.service';
     EmployeeModule
   ],
   providers: [AccountService,
-    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
-    AuthGuard,AppService],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    AuthGuard, AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

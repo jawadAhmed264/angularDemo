@@ -1,22 +1,26 @@
 <div class="row">
-    <div class="col-md-12">
-        <button class="btn btn-lg btn-outline-primary" *ngIf="userService.roleMatch(['Admin'])"(click)="add()">{{'Add Department'|translate}}</button>
-    </div>
+  <div class="col-md-12">
+    <button class="btn btn-lg btn-outline-primary" *ngIf="userService.roleMatch(['Admin'])"
+      (click)="add()">{{'Add Department'|translate}}</button>
+    <button class="btn btn-lg btn-success" (click)="generatePdf()"><i class="fas fa-download"></i> Open PDF</button>
+  </div>
 </div>
 <br>
 <div class="row">
   <div class="col-md-12">
     <table class="table table-bordered">
-        <tr>
-            <td>Id</td>
-            <td>{{'Name'|translate}}</td>
-            <td>{{'Actions'|translate}}</td>
-        </tr>
-        <tr *ngFor="let dep of DepartmentList;let i = index;trackBy: trackByDepId">
-            <td>{{dep.Id}}</td>
-            <td>{{dep.DepName}}</td>
-            <td><button class="btn btndefault" *ngIf="userService.roleMatch(['Admin'])" (click)=update(dep)>{{'Update'|translate}}</button><button class="btn btn-danger" *ngIf="userService.roleMatch(['Admin'])" (click)="delete(dep)">{{'Delete'|translate}}</button></td>
-        </tr>
+      <tr>
+        <td>Id</td>
+        <td>{{'Name'|translate}}</td>
+        <td>{{'Actions'|translate}}</td>
+      </tr>
+      <tr *ngFor="let dep of DepartmentList;let i = index;trackBy: trackByDepId">
+        <td>{{dep.Id}}</td>
+        <td>{{dep.DepName}}</td>
+        <td><button class="btn btndefault" *ngIf="userService.roleMatch(['Admin'])"
+            (click)=update(dep)>{{'Update'|translate}}</button><button class="btn btn-danger"
+            *ngIf="userService.roleMatch(['Admin'])" (click)="delete(dep)">{{'Delete'|translate}}</button></td>
+      </tr>
     </table>
-   </div>
+  </div>
 </div>
