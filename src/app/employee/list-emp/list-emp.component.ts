@@ -5,9 +5,7 @@ import { DepartmentService } from 'src/app/department/departmentServices/departm
 import { EmployeeService } from 'src/app/employee/employeeServices/employee.service';
 import { AddEmpComponent } from '../add-emp/add-emp.component';
 import { AccountService } from 'src/app/sharedServices/account.service';
-import pdfMake from 'pdfmake/build/pdfmake.js';
-import pdfFonts from 'pdfmake/build/vfs_fonts.js';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import html2pdf from 'html2pdf.js';
 
 @Component({
    selector: 'app-list-emp',
@@ -15,7 +13,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
    styleUrls: ['./list-emp.component.css']
 })
 export class ListEmpComponent implements OnInit {
-
+   valueDate = new Date();
    EmployeeList: Employee[];
    constructor(private depService: DepartmentService,
       private service: EmployeeService,
@@ -28,51 +26,26 @@ export class ListEmpComponent implements OnInit {
       });
    }
 
-   generatePdf() {
-      pdfMake.createPdf(this.getDocumentDefinition()).open();
-   }
-
-   getDocumentDefinition() {
-      let docDefinition = {
-         content: [
-            {
-               text: 'Employee List',
-               style: 'header'
-            },
-            {
-               table: {
-                  headerRows: 1,
-                  widths: [30, 'auto', 'auto', 'auto', 40, 70, 'auto'],
-                  body: [
-                     [{ text: 'ID', style: 'tableHeader' },
-                     { text: 'Employee Name', style: 'tableHeader' },
-                     { text: 'Gender', style: 'tableHeader' },
-                     { text: 'Contact', style: 'tableHeader' },
-                     { text: 'Age', style: 'tableHeader' },
-                     { text: 'Salary', style: 'tableHeader' },
-                     { text: 'Department', style: 'tableHeader' }],
-                     ...this.EmployeeList.map(e => ([e.Id, e.EmpName, e.Gender, e.Contact, e.Age, e.Salary, e.Department.DepName]))
-                  ]
-               }
-            }
-         ],
-         styles: {
-            header: {
-               fontSize: 24,
-               bold: true,
-               alignment: 'center',
-               margin: [0, 0, 0, 50]
-            },
-            tableHeader: { fillColor: 'black', color: 'white', bold: true, fontSize: 10, margin: [0, 0, 0, 10], alignment: 'center' },
-         }
-      };
-      return docDefinition;
-   }
 
    trackByEmpId(i: number, emp: Employee): number {
       return emp.Id;
    }
+   download() {
+      const opt = {
+         margin: 1,
+         filename: 'myfile.pdf',
+         image: { type: 'jpeg', quality: 1 },
+         html2canvas: { scale: 2 },
+         jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+      };
 
+      const element = document.getElementById('exporttoPDF').innerHTML;
+      html2pdf().from(element).set(opt).toPdf().get('pdf').then(function (pdf) {
+         window.open(pdf.output('bloburl'), '_blank');
+      });
+
+
+   }
    add() {
       const modalRef = this.modalService.open(AddEmpComponent);
       modalRef.componentInstance.formTitle = "Add new Employee";

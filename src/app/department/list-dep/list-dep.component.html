@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <button class="btn btn-lg btn-outline-primary" *ngIf="userService.roleMatch(['Admin'])"
       (click)="add()">{{'Add Department'|translate}}</button>
-    <button class="btn btn-lg btn-success" (click)="generatePdf()"><i class="fas fa-download"></i> Open PDF</button>
+    <button class="btn btn-lg btn-success" (click)="download()"><i class="fas fa-download"></i> Open PDF</button>
   </div>
 </div>
 <br>
@@ -22,5 +22,27 @@
             *ngIf="userService.roleMatch(['Admin'])" (click)="delete(dep)">{{'Delete'|translate}}</button></td>
       </tr>
     </table>
+  </div>
+</div>
+
+<div id="exporttoPDF" style="display: none">
+  <h1 class="text-center">Department List</h1><br>
+  <div class="row">
+    <div class="col-md-12">
+      <table id="depTable" class="table table-bordered">
+        <thead>
+          <tr>
+            <td>ID</td>
+            <td>Department Name</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dep of DepartmentList;let i = index;trackBy: trackByDepId">
+            <td>{{dep.Id}}</td>
+            <td>{{dep.DepName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

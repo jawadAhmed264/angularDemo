@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule } from '@ngx-translate/core';
 
-
 @NgModule({
   declarations: [
     ListDepComponent,
@@ -22,8 +21,8 @@ import { TranslateModule } from '@ngx-translate/core';
     DepartmentRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
+    NgbModule
   ],
-  providers:[DepartmentService]
+  providers: [DepartmentService]
 })
 export class DepartmentModule { }
