@@ -1,73 +1,142 @@
 <div class=row>
   <div class="col-md-12">
     <button class="btn btn-lg btn-outline-primary" (click)="add()">{{'Add Employee'|translate}}</button>
-    <button class="btn btn-lg btn-success" (click)="download()"><i class="fas fa-download"></i> Open PDF</button>
   </div>
 </div>
 <br>
-<div class="row">
-  <div class="col-md-12">
-    <table class="table table-bordered">
-      <tr>
-        <td>Id</td>
-        <td>{{'Name'|translate}}</td>
-        <td>{{'Gender'|translate}}</td>
-        <td>{{'Contact'|translate}}</td>
-        <td>{{'Age'|translate}}</td>
-        <td>{{'Salary'|translate}}</td>
-        <td>{{'Department'|translate}}</td>
-        <td>{{'Actions'|translate}}</td>
-      </tr>
-      <tr *ngFor="let emp of EmployeeList;let i = index;trackBy: trackByEmpId">
-        <td>{{emp.Id}}</td>
-        <td>{{emp.EmpName}}</td>
-        <td>{{emp.Gender}}</td>
-        <td>{{emp.Contact}}</td>
-        <td>{{emp.Age}}</td>
-        <td>{{emp.Salary}}</td>
-        <td>{{emp.Department.DepName}}</td>
-        <td><button class="btn btndefault" *ngIf="userService.roleMatch(['Admin','SubAdmin'])"
-            (click)=update(emp)>{{'Update'|translate}}</button> <button class="btn btn-danger"
-            *ngIf="userService.roleMatch(['Admin','SubAdmin'])" (click)="delete(emp)">{{'Delete'|translate}}</button>
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
+<!-- PrimeNG-Grid -->
+<p-table #dt1 [value]="EmployeeList" dataKey="Id" [rows]="5" [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[5,10]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines"
+  [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [globalFilterFields]="['EmpName','Age','Gender','Contact','Department.DepName','Salary']" [resizableColumns]="true"
+  [scrollable]="true" [style]="{width:'100%'}" scrollHeight="600px">
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+      <col style="width:250px">
+      <col style="width:250px">
+      <col style="width:250px">
+      <col style="width:250px">
+      <col style="width:250px">
+      <col style="width:250px">
+      <col style="width:250px">
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="caption">
 
+    <div class="p-d-flex-inline">
+      <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="download()" class="p-button-warning p-mr-2">
+      </button>
+      <span class="p-input-icon-left p-ml-auto">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"
+          placeholder="Search keyword" />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="EmpName" pResizableColumn>
+        <div class="p-d-flex p-jc-between p-ai-center">
+          <p-sortIcon field="EmpName"></p-sortIcon>Employee Name
+          <p-columnFilter type="text" field="EmpName" display="menu"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="Age" pResizableColumn>
+        <div class="p-d-flex p-jc-between p-ai-center">
+          <p-sortIcon field="Age"></p-sortIcon>Age
+          <p-columnFilter type="text" field="Age" display="menu"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="Gender" pResizableColumn>
+        <div class="p-d-flex p-jc-between p-ai-center">
+          <p-sortIcon field="Gender"></p-sortIcon>Gender
+          <p-columnFilter type="text" field="Gender" display="menu"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="Contact" pResizableColumn>
+        <div class="p-d-flex p-jc-between p-ai-center">
+          <p-sortIcon field="Contact"></p-sortIcon>Contact
+          <p-columnFilter type="text" field="Contact" display="menu"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="Department.DepName" pResizableColumn>
+        <div class="p-d-flex p-jc-between p-ai-center">
+          <p-sortIcon field="Department.DepName"></p-sortIcon>Department
+          <p-columnFilter type="text" field="Department.DepName" display="menu"></p-columnFilter>
+        </div>
+      </th>
+      <th pSortableColumn="Salary" pResizableColumn>
+        <div class="p-d-flex p-jc-between p-ai-center">
+          <p-sortIcon field="Salary"></p-sortIcon>Salary
+          <p-columnFilter type="text" field="Salary" display="menu"></p-columnFilter>
+        </div>
+      </th>
+      <th spResizableColumn>
+        <div class="p-d-flex p-jc-between p-ai-center">
+          Actions
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-emp>
+    <tr>
+      <td>
+        {{emp.EmpName}}
+      </td>
+      <td>
+        {{emp.Age}}
+      </td>
+      <td>
+        {{emp.Gender}}
+      </td>
+      <td>
+        {{emp.Contact}}
+      </td>
+      <td>
+        {{emp.Department.DepName}}
+      </td>
+      <td>
+        {{emp.Salary}}
+      </td>
+      <td><button class="btn btn-outline-success" *ngIf="userService.roleMatch(['Admin','SubAdmin'])"
+          (click)=update(emp)><i class="far fa-edit"></i>{{'Update'|translate}}</button> <button class="btn btn-danger"
+          *ngIf="userService.roleMatch(['Admin','SubAdmin'])" (click)="delete(emp)">
+          <i class="fas fa-trash-alt"></i></button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="8">No Employees found.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Export to PDF -->
 <div id="exporttoPDF" style="display: none">
-  <header style="border: 1px solid black;width: 98%;margin-bottom: 100px;">
+  <header style="border: 1px solid black;width: 98%;margin-bottom: 30px;">
     <h1 class="text-center" style="color:blue">DataSoft Solutions ltd</h1>
   </header>
   <h3>Employee List</h3><br>
-  <div class="row">
-    <div class="col-md-11">
-      <table id="depTable" class="table table-bordered">
-        <thead>
-          <tr>
-            <td>Id</td>
-            <td>Name</td>
-            <td>Gender</td>
-            <td>Contact</td>
-            <td>Age</td>
-            <td>Salary</td>
-            <td>Department</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let emp of EmployeeList;let i = index;trackBy: trackByEmpId">
-            <td>{{emp.Id}}</td>
-            <td>{{emp.EmpName}}</td>
-            <td>{{emp.Gender}}</td>
-            <td>{{emp.Contact}}</td>
-            <td>{{emp.Age}}</td>
-            <td>{{emp.Salary}}</td>
-            <td>{{emp.Department.DepName}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <table border="1" style="padding: 2%;width:90%">
+    <thead>
+      <tr>
+        <th *ngFor="let col of cols" style="background-color: black; color:white;font-weight: bold;">
+          {{col.header}}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of EmployeeList">
+        <td>{{emp.EmpName}}</td>
+        <td>{{emp.Age}}</td>
+        <td>{{emp.Gender}}</td>
+        <td>{{emp.Contact}}</td>
+        <td>{{emp.Salary}}</td>
+        <td>{{emp.Department.DepName}}</td>
+      </tr>
+    </tbody>
+  </table>
   <footer>
     <p>Copyright© {{valueDate | date: 'yyyy'}}</p>
   </footer>

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +19,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { IdleModalComponent } from './structure/idle-modal/idle-modal.component';
-import { MomentModule } from 'angular2-moment'
+import { MomentModule } from 'angular2-moment';
 import { AppService } from './sharedServices/app.service';
 
 @NgModule({
@@ -33,6 +34,7 @@ import { AppService } from './sharedServices/app.service';
   imports: [
     MomentModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({

@@ -15,6 +15,9 @@ import html2pdf from 'html2pdf.js';
 export class ListEmpComponent implements OnInit {
    valueDate = new Date();
    EmployeeList: Employee[];
+   cols: any[];
+   loading: boolean = true;
+
    constructor(private depService: DepartmentService,
       private service: EmployeeService,
       public userService: AccountService,
@@ -23,28 +26,36 @@ export class ListEmpComponent implements OnInit {
    ngOnInit(): void {
       this.service.getList().subscribe(data => {
          this.EmployeeList = data;
+         this.loading = false;
       });
+      this.cols = [
+         { header: 'Name' },
+         { header: 'Age' },
+         { header: 'Gender' },
+         { header: 'Contact' },
+         { header: 'Salary' },
+         { header: 'Department' }
+      ];
    }
 
-
-   trackByEmpId(i: number, emp: Employee): number {
-      return emp.Id;
-   }
    download() {
       const opt = {
-         margin: 1,
+         margin: 0.5,
          filename: 'myfile.pdf',
-         image: { type: 'jpeg', quality: 1 },
-         html2canvas: { scale: 2 },
-         jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+         image: { type: 'jpeg', quality: 0.98 },
+         html2canvas: { scale: 1 },
+         jsPDF: {}
       };
-
+      if (this.cols.length > 7) {
+         opt.jsPDF = { unit: 'in', format: 'A4', orientation: 'landscape' }
+      }
+      else {
+         opt.jsPDF = { unit: 'in', format: 'A4', orientation: 'portrait' }
+      }
       const element = document.getElementById('exporttoPDF').innerHTML;
       html2pdf().from(element).set(opt).toPdf().get('pdf').then(function (pdf) {
          window.open(pdf.output('bloburl'), '_blank');
       });
-
-
    }
    add() {
       const modalRef = this.modalService.open(AddEmpComponent);
