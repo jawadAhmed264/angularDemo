@@ -23,9 +23,11 @@
   </ng-template>
   <ng-template pTemplate="caption">
 
-    <div class="p-d-flex-inline">
-      <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="download()" class="p-button-warning p-mr-2">
-      </button>
+    <div class="p-d-flex">
+      <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="download()"
+        class="p-button-warning p-mr-2"></button>
+      <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+        class="p-button-success p-mr-2"></button>
       <span class="p-input-icon-left p-ml-auto">
         <i class="pi pi-search"></i>
         <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')"

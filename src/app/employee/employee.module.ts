@@ -11,8 +11,7 @@ import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple'
-
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
   declarations: [
