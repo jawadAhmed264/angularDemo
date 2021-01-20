@@ -5,30 +5,30 @@ import { Observable } from 'rxjs/index';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor() {}
+    constructor() { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    const yourToken = localStorage.getItem("userToken");
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (yourToken) {
-        req = req.clone({
-            setHeaders: {
-                'Content-Type': 'application/json; charset=utf-8',
-                Accept: 'application/json',
-                Authorization: `Bearer ${yourToken}`
-            }
-        });
-    } else {
-        req = req.clone({
-            setHeaders: {
-                //'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-                //'No-Auth':'True',
-                Accept: 'application/json'
-            }
-        });
+        const yourToken = localStorage.getItem("userToken");
+
+        if (yourToken) {
+            req = req.clone({
+                setHeaders: {
+                    //'Content-Type': 'application/json; charset=utf-8',
+                    Accept: 'application/json',
+                    Authorization: `Bearer ${yourToken}`
+                }
+            });
+        } else {
+            req = req.clone({
+                setHeaders: {
+                    //'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                    //'No-Auth':'True',
+                    Accept: 'application/json'
+                }
+            });
+        }
+
+        return next.handle(req);
     }
-
-    return next.handle(req);
-  }
 }

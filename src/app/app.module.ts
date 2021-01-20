@@ -21,6 +21,7 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { IdleModalComponent } from './structure/idle-modal/idle-modal.component';
 import { MomentModule } from 'angular2-moment';
 import { AppService } from './sharedServices/app.service';
+import { UploadDownloadComponent } from './upload-download/upload-download.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AppService } from './sharedServices/app.service';
     NavComponent,
     ForbiddenComponent,
     IdleModalComponent,
+    UploadDownloadComponent,
   ],
   imports: [
     MomentModule,
