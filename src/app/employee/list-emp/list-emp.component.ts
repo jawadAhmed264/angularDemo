@@ -6,6 +6,7 @@ import { EmployeeService } from 'src/app/employee/employeeServices/employee.serv
 import { AddEmpComponent } from '../add-emp/add-emp.component';
 import { AccountService } from 'src/app/sharedServices/account.service';
 import html2pdf from 'html2pdf.js';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
    selector: 'app-list-emp',
@@ -21,7 +22,9 @@ export class ListEmpComponent implements OnInit {
    constructor(private depService: DepartmentService,
       private service: EmployeeService,
       public userService: AccountService,
-      private modalService: NgbModal) { }
+      private modalService: NgbModal,
+      private messageService: MessageService,
+      private confirmationService: ConfirmationService) { }
 
    ngOnInit(): void {
       this.service.getList().subscribe(data => {
@@ -84,13 +87,25 @@ export class ListEmpComponent implements OnInit {
    }
 
    delete(emp: Employee) {
-      const chk = confirm("do you want to delete record?");
-      if (chk) {
-         this.service.delete(emp.Id).subscribe(data => {
-            this.refList();
-            console.log("Deleted");
-         });
-      }
+      this.confirmationService.confirm({
+         message: 'Are you sure that you want to delete the record',
+         accept: () => {
+            this.service.delete(emp.Id).subscribe(data => {
+               this.refList();
+               this.messageService.add({
+                  severity: 'success',
+                  summary: 'Successfully',
+                  detail: 'Employee deleted Successfully',
+               });
+            }, error => {
+               this.messageService.add({
+                  severity: 'error',
+                  summary: 'Failed',
+                  detail: 'Employee can not be deleted,there is some issue',
+               });
+            });
+         }
+      });
    }
 
    refList() {

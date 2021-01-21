@@ -1,22 +1,23 @@
-
 <div class="modal-header">
-    <h4 class="modal-title">{{ formTitle | translate}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <h4 class="modal-title">{{ formTitle | translate}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 
-  <div class="modal-body">
-    <form [formGroup]="depForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-        <span class="error">*</span><label>{{'Department'|translate}}</label>
-          <input type="text" class="form-control" id="depName" formControlName="depName"/>
-          <div *ngIf="depForm.controls['depName'].invalid && (depForm.controls['depName'].touched || depForm.controls['depName'].dirty)" class="error">
-              <div *ngIf="depForm.controls['depName'].errors.required">
-                Name is required
-              </div>
-          </div>
+<div class="modal-body">
+  <form [formGroup]="depForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <span class="error">*</span><label>{{'Department'|translate}}</label>
+      <input type="text" class="form-control" id="depName" formControlName="depName" />
+      <div
+        *ngIf="depForm.controls['depName'].invalid && (depForm.controls['depName'].touched || depForm.controls['depName'].dirty)"
+        class="error">
+        <div *ngIf="depForm.controls['depName'].errors.required">
+          Name is required
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!depForm.valid">{{'Save'|translate}}</button>
-      </form>
-  </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!depForm.valid">{{'Save'|translate}}</button>
+  </form>
+</div>

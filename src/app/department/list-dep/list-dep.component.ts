@@ -5,6 +5,7 @@ import { DepartmentService } from '../departmentServices/department.service'
 import { AddDepComponent } from '../add-dep/add-dep.component';
 import { AccountService } from 'src/app/sharedServices/account.service';
 import html2pdf from 'html2pdf.js';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
    selector: 'app-list-dep',
@@ -18,7 +19,9 @@ export class ListDepComponent implements OnInit {
    constructor(
       private service: DepartmentService,
       private modalService: NgbModal,
-      public userService: AccountService) { }
+      public userService: AccountService,
+      private confirmationService: ConfirmationService,
+      private messageService: MessageService) { }
 
    ngOnInit(): void {
       this.service.getList().subscribe(data => {
@@ -61,6 +64,7 @@ export class ListDepComponent implements OnInit {
    }
 
    update(dep: Department) {
+
       const modalRef = this.modalService.open(AddDepComponent);
       modalRef.componentInstance.formTitle = "Edit Department";
       modalRef.componentInstance.department = dep;
@@ -70,13 +74,26 @@ export class ListDepComponent implements OnInit {
    }
 
    delete(dep: Department) {
-      const chk = confirm("do you want to delete record?");
-      if (chk) {
-         this.service.delete(dep.Id).subscribe(data => {
-            this.refList();
-            console.log("Deleted");
-         });
-      }
+      this.confirmationService.confirm({
+         message: 'Are you sure that you want to delete the record',
+         accept: () => {
+            this.service.delete(dep.Id).subscribe(data => {
+               this.refList();
+               this.messageService.add({
+                  severity: 'success',
+                  summary: 'Successfully',
+                  detail: 'department deleted Successfully',
+               });
+            }, error => {
+               this.messageService.add({
+                  severity: 'error',
+                  summary: 'Failed',
+                  detail: 'department can not be deleted it is depended on Employee',
+               });
+            });
+         }
+      });
+
    }
 
    refList() {
@@ -84,4 +101,3 @@ export class ListDepComponent implements OnInit {
    }
 
 }
-

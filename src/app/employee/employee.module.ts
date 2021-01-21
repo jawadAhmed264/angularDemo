@@ -12,6 +12,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -31,8 +35,10 @@ import { RippleModule } from 'primeng/ripple';
     DropdownModule,
     InputTextModule,
     ButtonModule,
-    RippleModule
+    RippleModule,
+    ToastModule,
+    ConfirmDialogModule
   ],
-  providers: [EmployeeService]
+  providers: [EmployeeService, MessageService, ConfirmationService]
 })
 export class EmployeeModule { }

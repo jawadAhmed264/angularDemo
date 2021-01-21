@@ -5,6 +5,7 @@ import { Department } from 'src/app/department/Models/department';
 import { Employee } from 'src/app/employee/Models/employee';
 import { DepartmentService } from 'src/app/department/departmentServices/department.service';
 import { EmployeeService } from 'src/app/employee/employeeServices/employee.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-emp',
@@ -16,7 +17,9 @@ export class AddEmpComponent implements OnInit {
   @Input() formTitle: string;
   @Input() employee: Employee;
   departmentList: Department[];
-  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder, private depService: DepartmentService, private service: EmployeeService) { }
+  constructor(public activeModal: NgbActiveModal, private fb: FormBuilder,
+    private depService: DepartmentService, private service: EmployeeService,
+    private messageService: MessageService) { }
 
   empForm: FormGroup;
 
@@ -34,6 +37,11 @@ export class AddEmpComponent implements OnInit {
   onSubmit() {
     if (this.employee.Id == 0) {
       this.service.add(this.empForm.value).subscribe(data => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successfully',
+          detail: 'new Employee added',
+        });
         this.activeModal.close('Notify click');
       });
     }
@@ -45,6 +53,11 @@ export class AddEmpComponent implements OnInit {
       this.employee.Salary = this.empForm.controls["Salary"].value;
       this.employee.DepId = this.empForm.controls["depId"].value;
       this.service.update(this.employee.Id, this.employee).subscribe(data => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successfully',
+          detail: 'Employee Updated',
+        });
         this.activeModal.close('Notify click');
       });
     }
