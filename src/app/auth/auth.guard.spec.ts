@@ -1,7 +1,15 @@
-import { Auth.Guard } from './auth.guard';
+import { TestBed } from '@angular/core/testing';
+import { AuthGuard } from './auth.guard';
 
-describe('Auth.Guard', () => {
-  it('should create an instance', () => {
-    expect(new Auth.Guard()).toBeTruthy();
+describe('AccountServiceService', () => {
+  let service: AuthGuard;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(AuthGuard);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 });

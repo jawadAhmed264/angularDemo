@@ -6,7 +6,6 @@ import { AddDepComponent } from '../add-dep/add-dep.component';
 import { AccountService } from 'src/app/sharedServices/account.service';
 import html2pdf from 'html2pdf.js';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
 @Component({
    selector: 'app-list-dep',
    templateUrl: './list-dep.component.html',
@@ -24,6 +23,7 @@ export class ListDepComponent implements OnInit {
       private messageService: MessageService) { }
 
    ngOnInit(): void {
+
       this.service.getList().subscribe(data => {
          this.DepartmentList = data;
 

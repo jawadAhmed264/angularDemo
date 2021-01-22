@@ -98,7 +98,7 @@
         {{emp.Department.DepName}}
       </td>
       <td>
-        {{emp.Salary}}
+        {{emp.Salary|currencyConverter:'euro'}}
       </td>
       <td><button class="btn btn-outline-success" *ngIf="userService.roleMatch(['Admin','SubAdmin'])"
           (click)=update(emp)><i class="far fa-edit"></i>{{'Update'|translate}}</button> <button class="btn btn-danger"

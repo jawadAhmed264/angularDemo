@@ -6,7 +6,7 @@ import { EmployeeService } from 'src/app/employee/employeeServices/employee.serv
 import { AddEmpComponent } from '../add-emp/add-emp.component';
 import { AccountService } from 'src/app/sharedServices/account.service';
 import html2pdf from 'html2pdf.js';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 
 @Component({
    selector: 'app-list-emp',
@@ -31,6 +31,7 @@ export class ListEmpComponent implements OnInit {
          this.EmployeeList = data;
          this.loading = false;
       });
+
       this.cols = [
          { header: 'Name' },
          { header: 'Age' },

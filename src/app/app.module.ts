@@ -31,7 +31,7 @@ import { UploadDownloadComponent } from './upload-download/upload-download.compo
     NavComponent,
     ForbiddenComponent,
     IdleModalComponent,
-    UploadDownloadComponent,
+    UploadDownloadComponent
   ],
   imports: [
     MomentModule,

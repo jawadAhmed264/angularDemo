@@ -16,11 +16,13 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { CurrencyConverterPipe } from '../pipes/currencyConverter.pipe';
 
 @NgModule({
   declarations: [
     ListEmpComponent,
-    AddEmpComponent
+    AddEmpComponent,
+    CurrencyConverterPipe
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,7 @@ import { ConfirmationService } from 'primeng/api';
     ToastModule,
     ConfirmDialogModule
   ],
-  providers: [EmployeeService, MessageService, ConfirmationService]
+  providers: [EmployeeService, MessageService, ConfirmationService],
+  exports: [CurrencyConverterPipe]
 })
 export class EmployeeModule { }
