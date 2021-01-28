@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Employee } from '../Models/employee';
+import { Employee, EmployeeList } from '../Models/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,10 @@ export class EmployeeService {
 
   getList(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.url);
+  }
+
+  getEmployeeByFilters(data: string): Observable<EmployeeList> {
+    return this.http.get<EmployeeList>(this.url + "GetbyFilters?data=" + data);
   }
 
   get(Id: number): Observable<Employee> {

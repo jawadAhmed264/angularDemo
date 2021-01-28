@@ -5,10 +5,11 @@
 </div>
 <br>
 <!-- PrimeNG-Grid -->
-<p-table #dt1 [value]="EmployeeList" dataKey="Id" [rows]="5" [showCurrentPageReport]="true"
-  [rowsPerPageOptions]="[5,10]" [loading]="loading" styleClass="p-datatable-customers p-datatable-gridlines"
-  [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  [globalFilterFields]="['EmpName','Age','Gender','Contact','Department.DepName','Salary']" [resizableColumns]="true"
+<p-table #dt1 [value]="EmployeeList" dataKey="Id" [lazy]="true" (onLazyLoad)="loadCustomers($event)" [rows]="5"
+  [totalRecords]="totalRecords" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10]" [loading]="loading"
+  styleClass="p-datatable-customers p-datatable-gridlines" [paginator]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [globalFilterFields]="['EmpName','Gender','Age','Salary','Contact','Department.DepName']" [resizableColumns]="true"
   [scrollable]="true" [style]="{width:'100%'}" scrollHeight="600px">
   <ng-template pTemplate="colgroup" let-columns>
     <colgroup>
@@ -40,37 +41,32 @@
       <th pSortableColumn="EmpName" pResizableColumn>
         <div class="p-d-flex p-jc-between p-ai-center">
           <p-sortIcon field="EmpName"></p-sortIcon>Employee Name
-          <p-columnFilter type="text" field="EmpName" display="menu"></p-columnFilter>
+
         </div>
       </th>
       <th pSortableColumn="Age" pResizableColumn>
         <div class="p-d-flex p-jc-between p-ai-center">
           <p-sortIcon field="Age"></p-sortIcon>Age
-          <p-columnFilter type="text" field="Age" display="menu"></p-columnFilter>
         </div>
       </th>
       <th pSortableColumn="Gender" pResizableColumn>
         <div class="p-d-flex p-jc-between p-ai-center">
           <p-sortIcon field="Gender"></p-sortIcon>Gender
-          <p-columnFilter type="text" field="Gender" display="menu"></p-columnFilter>
         </div>
       </th>
       <th pSortableColumn="Contact" pResizableColumn>
         <div class="p-d-flex p-jc-between p-ai-center">
           <p-sortIcon field="Contact"></p-sortIcon>Contact
-          <p-columnFilter type="text" field="Contact" display="menu"></p-columnFilter>
         </div>
       </th>
       <th pSortableColumn="Department.DepName" pResizableColumn>
         <div class="p-d-flex p-jc-between p-ai-center">
           <p-sortIcon field="Department.DepName"></p-sortIcon>Department
-          <p-columnFilter type="text" field="Department.DepName" display="menu"></p-columnFilter>
         </div>
       </th>
       <th pSortableColumn="Salary" pResizableColumn>
         <div class="p-d-flex p-jc-between p-ai-center">
           <p-sortIcon field="Salary"></p-sortIcon>Salary
-          <p-columnFilter type="text" field="Salary" display="menu"></p-columnFilter>
         </div>
       </th>
       <th spResizableColumn>

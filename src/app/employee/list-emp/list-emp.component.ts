@@ -18,6 +18,8 @@ export class ListEmpComponent implements OnInit {
    EmployeeList: Employee[];
    cols: any[];
    loading: boolean = true;
+   totalRecords: number;
+   tableData;
 
    constructor(private depService: DepartmentService,
       private service: EmployeeService,
@@ -27,10 +29,6 @@ export class ListEmpComponent implements OnInit {
       private confirmationService: ConfirmationService) { }
 
    ngOnInit(): void {
-      this.service.getList().subscribe(data => {
-         this.EmployeeList = data;
-         this.loading = false;
-      });
 
       this.cols = [
          { header: 'Name' },
@@ -40,6 +38,19 @@ export class ListEmpComponent implements OnInit {
          { header: 'Salary' },
          { header: 'Department' }
       ];
+   }
+
+   loadCustomers(event: LazyLoadEvent) {
+      this.loading = true;
+      this.tableData = event;
+      setTimeout(() => {
+         this.service.getEmployeeByFilters(JSON.stringify(this.tableData)).subscribe(res => {
+            this.EmployeeList = res.Employees;
+            this.totalRecords = res.TotalEmployees;
+            this.loading = false;
+         })
+      }, 1000);
+      console.log(JSON.stringify(event));
    }
 
    download() {
@@ -74,7 +85,7 @@ export class ListEmpComponent implements OnInit {
       emp.DepId = -1;
       modalRef.componentInstance.employee = emp;
       modalRef.closed.subscribe(result => {
-         this.refList();
+         this.loadCustomers(this.tableData);
       });
    }
 
@@ -83,7 +94,7 @@ export class ListEmpComponent implements OnInit {
       modalRef.componentInstance.formTitle = "Edit Employee";
       modalRef.componentInstance.employee = emp;
       modalRef.closed.subscribe(result => {
-         this.refList();
+         this.loadCustomers(this.tableData);
       });
    }
 
@@ -92,7 +103,7 @@ export class ListEmpComponent implements OnInit {
          message: 'Are you sure that you want to delete the record',
          accept: () => {
             this.service.delete(emp.Id).subscribe(data => {
-               this.refList();
+               this.loadCustomers(this.tableData);
                this.messageService.add({
                   severity: 'success',
                   summary: 'Successfully',
@@ -109,11 +120,11 @@ export class ListEmpComponent implements OnInit {
       });
    }
 
-   refList() {
-      this.service.getList().subscribe(data => {
-         this.EmployeeList = data;
-      });
-   }
+   // refList() {
+   //    this.service.getList().subscribe(data => {
+   //       this.EmployeeList = data;
+   //    });
+   // }
 
    exportExcel() {
       import("xlsx").then(xlsx => {

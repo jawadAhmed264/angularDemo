@@ -10,3 +10,8 @@ export class Employee {
     Department: Department;
     Gender: string;
 }
+
+export class EmployeeList {
+    Employees: Employee[];
+    TotalEmployees: number
+}
