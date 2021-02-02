@@ -22,6 +22,8 @@ import { IdleModalComponent } from './structure/idle-modal/idle-modal.component'
 import { MomentModule } from 'angular2-moment';
 import { AppService } from './sharedServices/app.service';
 import { UploadDownloadComponent } from './upload-download/upload-download.component';
+import { JsonPlaceholderComponent } from './json-placeholder/json-placeholder.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { UploadDownloadComponent } from './upload-download/upload-download.compo
     NavComponent,
     ForbiddenComponent,
     IdleModalComponent,
-    UploadDownloadComponent
+    UploadDownloadComponent,
+    JsonPlaceholderComponent
   ],
   imports: [
     MomentModule,
@@ -51,7 +54,8 @@ import { UploadDownloadComponent } from './upload-download/upload-download.compo
     ReactiveFormsModule,
     NgbModule,
     DepartmentModule,
-    EmployeeModule
+    EmployeeModule,
+    TableModule
   ],
   providers: [AccountService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

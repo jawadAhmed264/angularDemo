@@ -1,0 +1,19 @@
+<p-table [value]="postList" [lazy]="true" (onLazyLoad)="loadCustomers($event)" [paginator]="true" [rows]="5"
+  [totalRecords]="totalRecords" [loading]="loading">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>userId</th>
+      <th>id</th>
+      <th>title</th>
+      <th>body</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-post>
+    <tr>
+      <td>{{post.id}}</td>
+      <td>{{post.userId}}</td>
+      <td>{{post.title}}</td>
+      <td>{{post.body}}</td>
+    </tr>
+  </ng-template>
+</p-table>
