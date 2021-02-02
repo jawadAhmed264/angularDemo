@@ -16,6 +16,7 @@ import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api'
 export class ListEmpComponent implements OnInit {
    valueDate = new Date();
    EmployeeList: Employee[];
+   downloadDataSet: Employee[];
    cols: any[];
    loading: boolean = true;
    totalRecords: number;
@@ -50,10 +51,13 @@ export class ListEmpComponent implements OnInit {
             this.loading = false;
          })
       }, 1000);
-      console.log(JSON.stringify(event));
+      this.service.getList().subscribe(data => {
+         this.downloadDataSet = data;
+      });
    }
 
    download() {
+
       const opt = {
          margin: 0.5,
          filename: 'myfile.pdf',
@@ -120,15 +124,9 @@ export class ListEmpComponent implements OnInit {
       });
    }
 
-   // refList() {
-   //    this.service.getList().subscribe(data => {
-   //       this.EmployeeList = data;
-   //    });
-   // }
-
    exportExcel() {
       import("xlsx").then(xlsx => {
-         const worksheet = xlsx.utils.json_to_sheet(this.EmployeeList);
+         const worksheet = xlsx.utils.json_to_sheet(this.downloadDataSet);
          const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
          const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
          this.saveAsExcelFile(excelBuffer, "products");

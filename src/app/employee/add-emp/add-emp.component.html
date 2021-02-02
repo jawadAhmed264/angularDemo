@@ -44,21 +44,15 @@
     </div>
     <div class="form-group">
       <span class="error">*</span><label>{{'Contact'|translate}}</label>
-      <input type="text" class="form-control" name="EmployeeContact" formControlName="Contact">
-      <div
-        *ngIf="empForm.controls['Contact'].invalid && (empForm.controls['Contact'].touched || empForm.controls['Contact'].dirty)"
-        class="error">
+      <ngx-intl-tel-input [cssClass]="'custom'"
+        [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom,CountryISO.Pakistan]"
+        [enableAutoCountrySelect]="true" [enablePlaceholder]="true" [searchCountryFlag]="true"
+        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]" [selectFirstCountry]="false"
+        [selectedCountryISO]="CountryISO.Pakistan" [maxLength]="15" [phoneValidation]="true" [inputId]="my-input-id"
+        name="Contact" formControlName="Contact"></ngx-intl-tel-input>
+      <div *ngIf="empForm.controls['Contact'].invalid && empForm.controls['Contact'].touched" class="error">
         <div *ngIf="empForm.controls['Contact'].errors.required">
           Contact is required
-        </div>
-        <div *ngIf="empForm.controls['Contact'].errors.maxlength">
-          limit exceeded
-        </div>
-        <div *ngIf="empForm.controls['Contact'].errors.minlength">
-          Enter atleast 8 characters
-        </div>
-        <div *ngIf="empForm.controls['Contact'].errors.pattern">
-          Invalid Contact Number
         </div>
       </div>
     </div>

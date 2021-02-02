@@ -17,6 +17,9 @@ import { MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { CurrencyConverterPipe } from '../pipes/currencyConverter.pipe';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { CurrencyConverterPipe } from '../pipes/currencyConverter.pipe';
     ButtonModule,
     RippleModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    BsDropdownModule,
+    TooltipModule,
+    NgxIntlTelInputModule
   ],
   providers: [EmployeeService, MessageService, ConfirmationService],
   exports: [CurrencyConverterPipe]
